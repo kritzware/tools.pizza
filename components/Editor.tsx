@@ -13,7 +13,10 @@ const THEMES = {
 const format = (text: string): string =>
   JSON.stringify(JSON.parse(text), null, 2);
 
-export type EditorMethods = typeof Editor & { formatEditorContent: () => void };
+export type EditorMethods = typeof Editor & {
+  formatEditorContent: () => void;
+  copyEditorContent: () => void;
+};
 
 const Editor = React.forwardRef((props, ref) => {
   const text = DATA1;
@@ -27,7 +30,18 @@ const Editor = React.forwardRef((props, ref) => {
     editorRef.current.setValue(format(editorRef.current.getValue()));
     editorRef.current.setScrollTop(0);
   };
-  useImperativeHandle(ref, () => ({ formatEditorContent }), []);
+
+  const copyEditorContent = () => {
+    if (typeof editorRef?.current === "undefined") return;
+    const content = editorRef.current.getValue();
+    navigator.clipboard.writeText(content);
+  };
+
+  useImperativeHandle(
+    ref,
+    () => ({ formatEditorContent, copyEditorContent }),
+    []
+  );
 
   const handleEditorDidMount = (
     editor: editor.IStandaloneCodeEditor,

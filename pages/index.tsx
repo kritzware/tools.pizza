@@ -9,7 +9,7 @@ export default function Home() {
   const editorRef = useRef<EditorMethods>();
 
   const onFormatButton = () => editorRef.current?.formatEditorContent();
-  const onCopyButton = () => {};
+  const onCopyButton = () => editorRef.current?.copyEditorContent();
 
   return (
     <div className={styles.container}>
