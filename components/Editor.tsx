@@ -3,6 +3,11 @@ import { languages, editor } from "monaco-editor/esm/vs/editor/editor.api";
 import { useMemo, useReducer, useRef, useState } from "react";
 import { DATA1, DATA2 } from "../lib/sample";
 
+const THEMES = {
+  light: "vs",
+  dark: "vs-dark",
+};
+
 export default function Editor() {
   const format = (text: string): string =>
     JSON.stringify(JSON.parse(text), null, 2);
@@ -24,9 +29,18 @@ export default function Editor() {
       editor.setScrollTop(0);
     });
 
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyB, () => {
+      // @ts-expect-error Not defined on type
+      const currentTheme = editor._themeService._theme.themeName;
+      const newTheme =
+        currentTheme === THEMES.light ? THEMES.dark : THEMES.light;
+      monaco.editor.setTheme(newTheme);
+    });
+
     // console.log(editor.getSupportedActions());
 
-    monaco.editor.defineTheme("myCustomTheme", {
+    // Original json.pizza theme (based on https://github.com/kritzware/json)
+    monaco.editor.defineTheme("original-pizza", {
       base: "vs-dark", // can also be vs-dark or hc-black
       inherit: true, // can also be false to completely replace the builtin rules
       rules: [
@@ -43,7 +57,7 @@ export default function Editor() {
         "editor.background": "#0F0F0F",
       },
     });
-    // monaco.editor.setTheme("myCustomTheme");
+    // monaco.editor.setTheme("original-pizza");
 
     editor.focus();
   };
@@ -60,14 +74,14 @@ export default function Editor() {
     fontSize: 15,
   };
 
-  const theme = "vs-dark";
+  const defaultTheme = THEMES.light;
 
   return (
     <MonacoEditor
       height="100vh"
       defaultLanguage="json"
       defaultValue={defaultText}
-      theme={theme}
+      theme={defaultTheme}
       options={options}
       onMount={handleEditorDidMount}
       loading={""}

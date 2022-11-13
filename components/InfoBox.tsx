@@ -27,7 +27,7 @@ export default function InfoBox() {
           <br />
           <b>Source:</b> View the source code on{" "}
           <a
-            href="https://github.com/kritzware/json"
+            href="https://github.com/kritzware/tools.pizza"
             target="_blank"
             rel="noreferrer"
           >
