@@ -6,6 +6,7 @@ export default function useComponentVisible(initialIsVisible: boolean) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   const handleClickOutside = (event: Event) => {
+    // @ts-ignore TODO: Fix this type error
     if (ref.current && !ref.current.contains(event.target)) {
       setIsComponentVisible(false);
     }
