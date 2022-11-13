@@ -10,13 +10,13 @@ const THEMES = {
   original: "original-pizza",
 };
 
+const format = (text: string): string =>
+  JSON.stringify(JSON.parse(text), null, 2);
+
 export default function Editor() {
-  const format = (text: string): string =>
-    JSON.stringify(JSON.parse(text), null, 2);
-
   const text = DATA1;
-  const [defaultText, setDefaultText] = useState(format(text));
 
+  const [defaultText, setDefaultText] = useState(format(text));
   const [loading, setLoading] = useState(true);
 
   const handleEditorDidMount = (
@@ -24,6 +24,22 @@ export default function Editor() {
     monaco: Monaco
   ) => {
     setLoading(false);
+
+    // Use system theme
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      monaco.editor.setTheme(THEMES.dark);
+    }
+
+    // Watch for system theme changes
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (event) => {
+        const newTheme = event.matches ? THEMES.dark : THEMES.light;
+        monaco.editor.setTheme(newTheme);
+      });
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
       // setDefaultText(format(text));
@@ -48,7 +64,7 @@ export default function Editor() {
     editor.focus();
   };
 
-  const options: EditorProps["options"] = {
+  const options: editor.IStandaloneEditorConstructionOptions = {
     minimap: { enabled: false },
     tabSize: 2,
     // formatOnPaste: true,

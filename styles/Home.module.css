@@ -137,7 +137,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-.action-buttons {
+.actionButtons {
   position: fixed;
   right: 46px;
   bottom: 46px;
@@ -147,7 +147,7 @@
   align-items: center;
 }
 
-.action-buttons button {
+.actionButtons button {
   display: inline-flex;
   align-items: center;
   border: none;
@@ -173,15 +173,15 @@
   position: relative;
 }
 
-.action-buttons button:hover {
+.actionButtons button:hover {
   background-color: #212122;
 }
 
-.action-buttons button:active {
+.actionButtons button:active {
   transform: translateY(1px);
 }
 
-.action-buttons button {
+.actionButtons button {
   margin-left: 8px;
 }
 
