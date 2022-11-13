@@ -2,10 +2,12 @@ import MonacoEditor, { Monaco, EditorProps } from "@monaco-editor/react";
 import { languages, editor } from "monaco-editor/esm/vs/editor/editor.api";
 import { useMemo, useReducer, useRef, useState } from "react";
 import { DATA1, DATA2 } from "../lib/sample";
+import { THEME_ORIGINAL_PIZZA } from "../lib/themes";
 
 const THEMES = {
   light: "vs",
   dark: "vs-dark",
+  original: "original-pizza",
 };
 
 export default function Editor() {
@@ -37,26 +39,10 @@ export default function Editor() {
       monaco.editor.setTheme(newTheme);
     });
 
-    // console.log(editor.getSupportedActions());
+    // Load custom themes
+    monaco.editor.defineTheme(THEMES.original, THEME_ORIGINAL_PIZZA);
 
-    // Original json.pizza theme (based on https://github.com/kritzware/json)
-    monaco.editor.defineTheme("original-pizza", {
-      base: "vs-dark", // can also be vs-dark or hc-black
-      inherit: true, // can also be false to completely replace the builtin rules
-      rules: [
-        {
-          token: "comment",
-          foreground: "ffa500",
-          fontStyle: "italic underline",
-        },
-        { token: "comment.js", foreground: "008800", fontStyle: "bold" },
-        { token: "comment.css", foreground: "0000ff" }, // will inherit fontStyle from `comment` above
-      ],
-      colors: {
-        // "editor.foreground": "#000000",
-        "editor.background": "#0F0F0F",
-      },
-    });
+    // Set custom theme
     // monaco.editor.setTheme("original-pizza");
 
     editor.focus();
@@ -65,11 +51,16 @@ export default function Editor() {
   const options: EditorProps["options"] = {
     minimap: { enabled: false },
     tabSize: 2,
-    formatOnPaste: true,
+    // formatOnPaste: true,
     // codeLens: false
     // smoothScrolling: true,
     // wordWrap: "on",
     scrollBeyondLastLine: false,
+    autoDetectHighContrast: false,
+    codeLens: false,
+    find: {
+      addExtraSpaceOnTop: false,
+    },
     fontFamily: "Spline Sans Mono",
     fontSize: 15,
   };
