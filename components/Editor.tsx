@@ -1,7 +1,7 @@
 import MonacoEditor, { Monaco, EditorProps } from "@monaco-editor/react";
 import { languages, editor } from "monaco-editor/esm/vs/editor/editor.api";
 import { useMemo, useReducer, useRef, useState } from "react";
-import { DATA1, DATA2 } from "../pages/sample";
+import { DATA1, DATA2 } from "../lib/sample";
 
 export default function Editor() {
   const format = (text: string): string =>
