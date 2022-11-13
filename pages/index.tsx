@@ -1,11 +1,14 @@
 import Head from "next/head";
+import { useRef } from "react";
 import Button from "../components/Button";
-import Editor from "../components/Editor";
+import Editor, { EditorMethods } from "../components/Editor";
 import InfoBox from "../components/InfoBox";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const onFormatButton = () => {};
+  const editorRef = useRef<EditorMethods>();
+
+  const onFormatButton = () => editorRef.current?.formatEditorContent();
   const onCopyButton = () => {};
 
   return (
@@ -19,7 +22,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Editor />
+        <Editor ref={editorRef} />
         <InfoBox />
         <div className={styles.actionButtons}>
           <Button icon="format" onClick={onFormatButton}>
