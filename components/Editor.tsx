@@ -1,6 +1,6 @@
 import MonacoEditor, { Monaco, EditorProps } from "@monaco-editor/react";
 import { editor } from "monaco-editor/esm/vs/editor/editor.api";
-import React, { useImperativeHandle, useRef, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { DATA1, DATA2 } from "../lib/sample";
 import { THEME_ORIGINAL_PIZZA } from "../lib/themes";
 
@@ -16,19 +16,27 @@ const format = (text: string): string =>
 export type EditorMethods = typeof Editor & {
   formatEditorContent: () => void;
   copyEditorContent: () => void;
+  toggleTheme: () => void;
 };
 
 const Editor = React.forwardRef((props, ref) => {
   const text = DATA1;
 
   const [defaultText, setDefaultText] = useState(format(text));
-  const editorRef = useRef<editor.IStandaloneCodeEditor>();
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState(THEMES.light);
+
+  const editorRef = useRef<editor.IStandaloneCodeEditor>();
+  const monacoRef = useRef<Monaco>();
 
   const formatEditorContent = () => {
     if (typeof editorRef?.current === "undefined") return;
     editorRef.current.setValue(format(editorRef.current.getValue()));
     editorRef.current.setScrollTop(0);
+    window.localStorage.setItem(
+      "pizza-format-cache",
+      editorRef.current.getValue()
+    );
   };
 
   const copyEditorContent = () => {
@@ -37,11 +45,29 @@ const Editor = React.forwardRef((props, ref) => {
     navigator.clipboard.writeText(content);
   };
 
+  const toggleTheme = () => {
+    if (
+      typeof editorRef?.current === "undefined" ||
+      typeof monacoRef?.current === "undefined"
+    )
+      return;
+    // @ts-expect-error Not defined on type
+    const currentTheme = editorRef.current._themeService._theme.themeName;
+    const newTheme = currentTheme === THEMES.light ? THEMES.dark : THEMES.light;
+    monacoRef.current.editor.setTheme(newTheme);
+    setTheme(newTheme);
+  };
+
   useImperativeHandle(
     ref,
-    () => ({ formatEditorContent, copyEditorContent }),
+    () => ({ formatEditorContent, copyEditorContent, toggleTheme, theme }),
     []
   );
+
+  useEffect(() => {
+    const cachedData = window.localStorage.getItem("pizza-format-cache");
+    if (cachedData) setDefaultText(cachedData);
+  }, []);
 
   const handleEditorDidMount = (
     editor: editor.IStandaloneCodeEditor,
@@ -49,6 +75,7 @@ const Editor = React.forwardRef((props, ref) => {
   ) => {
     setLoading(false);
     editorRef.current = editor;
+    monacoRef.current = monaco;
 
     // Use system theme
     if (
@@ -64,6 +91,7 @@ const Editor = React.forwardRef((props, ref) => {
       .addEventListener("change", (event) => {
         const newTheme = event.matches ? THEMES.dark : THEMES.light;
         monaco.editor.setTheme(newTheme);
+        setTheme(newTheme);
       });
 
     editor.addCommand(
@@ -71,13 +99,7 @@ const Editor = React.forwardRef((props, ref) => {
       formatEditorContent
     );
 
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyB, () => {
-      // @ts-expect-error Not defined on type
-      const currentTheme = editor._themeService._theme.themeName;
-      const newTheme =
-        currentTheme === THEMES.light ? THEMES.dark : THEMES.light;
-      monaco.editor.setTheme(newTheme);
-    });
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyB, toggleTheme);
 
     // Load custom themes
     monaco.editor.defineTheme(THEMES.original, THEME_ORIGINAL_PIZZA);
@@ -107,14 +129,14 @@ const Editor = React.forwardRef((props, ref) => {
   };
 
   // Set default theme
-  const defaultTheme = THEMES.light;
+  // const defaultTheme = THEMES.light;
 
   return (
     <MonacoEditor
       height="100vh"
       defaultLanguage="json"
       defaultValue={defaultText}
-      theme={defaultTheme}
+      theme={theme}
       options={options}
       onMount={handleEditorDidMount}
       loading={""}

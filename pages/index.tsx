@@ -10,6 +10,7 @@ export default function Home() {
 
   const onFormatButton = () => editorRef.current?.formatEditorContent();
   const onCopyButton = () => editorRef.current?.copyEditorContent();
+  const onThemeButton = () => editorRef.current?.toggleTheme();
 
   return (
     <div className={styles.container}>
@@ -28,9 +29,8 @@ export default function Home() {
           <Button icon="format" onClick={onFormatButton}>
             Format
           </Button>
-          <Button icon="copy" onClick={onCopyButton}>
-            Copy
-          </Button>
+          <Button icon="copy" onClick={onCopyButton} />
+          <Button icon="theme" onClick={onThemeButton} />
         </div>
       </main>
     </div>

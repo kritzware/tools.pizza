@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ButtonProps {
-  icon?: "format" | "copy";
+  icon?: "format" | "copy" | "theme";
   onClick?: () => void;
 }
 
@@ -10,7 +10,9 @@ export default function Button(props: React.PropsWithChildren<ButtonProps>) {
     <button onClick={props.onClick}>
       {props.icon && props.icon === "format" && (
         <svg
-          style={{ marginRight: "10px" }}
+          style={{
+            marginRight: typeof props.children !== "undefined" ? "10px" : 0,
+          }}
           width="16"
           height="14"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +26,9 @@ export default function Button(props: React.PropsWithChildren<ButtonProps>) {
       )}
       {props.icon && props.icon === "copy" && (
         <svg
-          style={{ marginRight: "10px" }}
+          style={{
+            marginRight: typeof props.children !== "undefined" ? "10px" : 0,
+          }}
           width="16"
           height="16"
           xmlns="http://www.w3.org/2000/svg"
@@ -35,6 +39,15 @@ export default function Button(props: React.PropsWithChildren<ButtonProps>) {
             fill-rule="nonzero"
           />
         </svg>
+      )}
+      {props.icon && props.icon === "theme" && (
+        <div
+          style={{
+            marginRight: typeof props.children !== "undefined" ? "10px" : 0,
+          }}
+        >
+          <span style={{ fontSize: 21 }}>🌞</span>
+        </div>
       )}
       {props.children}
     </button>
