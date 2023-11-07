@@ -1,6 +1,7 @@
 import MonacoEditor, { Monaco, EditorProps } from "@monaco-editor/react";
 import { editor } from "monaco-editor/esm/vs/editor/editor.api";
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { DATA1, DATA2 } from "../lib/sample";
 import { THEME_ORIGINAL_PIZZA } from "../lib/themes";
 
@@ -25,6 +26,8 @@ const Editor = React.forwardRef((props, ref) => {
   const [defaultText, setDefaultText] = useState(format(text));
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(THEMES.light);
+
+  const router = useRouter();
 
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
   const monacoRef = useRef<Monaco>();
@@ -65,9 +68,14 @@ const Editor = React.forwardRef((props, ref) => {
   );
 
   useEffect(() => {
-    const cachedData = window.localStorage.getItem("pizza-format-cache");
-    if (cachedData) setDefaultText(cachedData);
-  }, []);
+    if (router.query?.data) {
+      const queryData = Buffer.from(router.query.data as string, "base64");
+      if (queryData) setDefaultText(queryData.toString());
+    } else {
+      const cachedData = window.localStorage.getItem("pizza-format-cache");
+      if (cachedData) setDefaultText(cachedData);
+    }
+  }, [router.query]);
 
   const handleEditorDidMount = (
     editor: editor.IStandaloneCodeEditor,
