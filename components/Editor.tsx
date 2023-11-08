@@ -61,6 +61,24 @@ const Editor = React.forwardRef((props, ref) => {
     setTheme(newTheme);
   };
 
+  const getShareableLink = () => {
+    if (typeof editorRef?.current === "undefined") return;
+    const content = editorRef.current.getValue();
+    const minifiedData = content.replaceAll(/\s+/g, "");
+    const b64Data = Buffer.from(minifiedData).toString("base64");
+
+    const domain =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : process.env.VERCEL_URL;
+
+    const url = new URL(domain as string);
+    url.searchParams.append("data", b64Data);
+
+    navigator.clipboard.writeText(url.toString());
+    console.log("shareable url:", url.toString());
+  };
+
   useImperativeHandle(
     ref,
     () => ({ formatEditorContent, copyEditorContent, toggleTheme, theme }),
@@ -108,6 +126,11 @@ const Editor = React.forwardRef((props, ref) => {
     );
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyB, toggleTheme);
+
+    editor.addCommand(
+      monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyL,
+      getShareableLink
+    );
 
     // Load custom themes
     monaco.editor.defineTheme(THEMES.original, THEME_ORIGINAL_PIZZA);
