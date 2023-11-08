@@ -70,7 +70,7 @@ const Editor = React.forwardRef((props, ref) => {
     const domain =
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
-        : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+        : `https://${process.env.NEXT_PUBLIC_URL}`;
 
     const url = new URL(domain as string);
     url.searchParams.append("data", b64Data);
