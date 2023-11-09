@@ -24,6 +24,10 @@ export default function InfoBox() {
             <br />
             <b>Themes:</b> Toggle between dark/light themes by pressing Cmd+B.
             <br />
+            <button className={styles.pill}>new! 🎉</button>
+            <b>Sharing:</b> Copy a shareable URL to your clipboard by pressing
+            Cmd+L.
+            <br />
             <b>Privacy:</b> Your data will not be stored or shared with any
             third parties.
             <br />
