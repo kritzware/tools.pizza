@@ -1,9 +1,11 @@
 import Head from "next/head";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/Button";
 import Editor, { EditorMethods } from "../components/Editor";
 import InfoBox from "../components/InfoBox";
 import styles from "../styles/Home.module.css";
+
+const SEEN_INFO = "tp:seen-info";
 
 export default function Home() {
   const editorRef = useRef<EditorMethods>();
@@ -11,6 +13,14 @@ export default function Home() {
   const onFormatButton = () => editorRef.current?.formatEditorContent();
   const onCopyButton = () => editorRef.current?.copyEditorContent();
   const onThemeButton = () => editorRef.current?.toggleTheme();
+
+  const [seenInfo, setSeenInfo] = useState(false);
+
+  useEffect(() => {
+    setSeenInfo(!!window.localStorage.getItem(SEEN_INFO));
+  }, []);
+
+  const onHideInfo = () => window.localStorage.setItem(SEEN_INFO, "true");
 
   return (
     <div className={styles.container}>
@@ -24,7 +34,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <Editor ref={editorRef} />
-        <InfoBox />
+        {!seenInfo && <InfoBox onHide={onHideInfo} />}
         <div className={styles.actionButtons}>
           <Button onClick={onFormatButton}>
             <svg

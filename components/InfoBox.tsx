@@ -1,9 +1,18 @@
+import { useEffect } from "react";
 import useComponentVisible from "../hooks/useComponentVisible";
 import styles from "../styles/Home.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 
-export default function InfoBox() {
+type Props = {
+  onHide: () => void;
+};
+
+export default function InfoBox(props: Props) {
   const { ref, isComponentVisible } = useComponentVisible(true);
+
+  useEffect(() => {
+    if (!isComponentVisible) props.onHide();
+  }, [props, isComponentVisible]);
 
   return (
     <div ref={ref}>
