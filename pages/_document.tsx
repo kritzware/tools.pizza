@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Space+Mono&family=Spline+Sans+Mono&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap"
             rel="stylesheet"
           />
           <Script
