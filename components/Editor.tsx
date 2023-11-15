@@ -1,7 +1,7 @@
 import MonacoEditor, { Monaco, EditorProps } from "@monaco-editor/react";
 import { editor } from "monaco-editor/esm/vs/editor/editor.api";
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { DATA1, DATA2 } from "../lib/sample";
 import { THEME_ORIGINAL_PIZZA } from "../lib/themes";
 
