@@ -1,0 +1,65 @@
+button {
+  all: unset;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+
+  cursor: pointer;
+  user-select: none;
+
+  position: relative;
+  padding: 0 14px;
+  height: 33px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background-color ease 0s, transform ease 0.24s;
+
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-variation-settings: "wght" 500;
+  font-size: 12.37px;
+  line-height: 9px;
+}
+button.has-shortcut {
+  padding: 0 12px 0 14px;
+}
+button:active {
+  transform: scale(0.95);
+}
+
+/* Dark */
+
+.dark button.primary {
+  background-color: hsl(240, 6%, 6%);
+  color: white;
+}
+.dark button.primary:hover {
+  background-color: hsl(240, 6%, 7%);
+}
+.dark button.secondary {
+  background-color: hsl(240, 6%, 11%);
+  color: hsl(240, 3%, 56%);
+}
+.dark button.secondary:hover {
+  background-color: hsl(240, 6%, 12%);
+}
+
+/* Light */
+
+.light button.primary {
+  background-color: hsl(240, 6%, 13%);
+  color: white;
+}
+.light button.primary:hover {
+  background-color: hsl(240, 6%, 14%);
+}
+.light button.secondary {
+  background-color: hsl(240, 15%, 91%);
+  color: hsl(240, 3%, 30%);
+}
+.light button.secondary:hover {
+  background-color: hsl(240, 15%, 90%);
+}

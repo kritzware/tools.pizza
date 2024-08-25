@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Aeonik Mono VF";
+  src: url("/fonts/aeonik-mono-vf/AeonikMonoVF.woff2")
+    format("woff2-variations");
+  font-weight: 300 800;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  font-display: swap;
+}
