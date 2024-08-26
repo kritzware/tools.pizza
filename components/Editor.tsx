@@ -11,9 +11,6 @@ const THEMES = {
   dark: "p-dark",
 };
 
-const format = (text: string): string =>
-  JSON.stringify(JSON.parse(text), null, 2);
-
 export type EditorMethods = {
   formatEditorContent: () => void;
   copyEditorContent: () => void;
@@ -31,6 +28,25 @@ const Editor = React.forwardRef<EditorMethods, EditorProps>(
   ({ onToggleTheme, darkMode }, ref) => {
   const text = DATA1;
 
+  const format = (
+    text: string, 
+    showToast?: (message: string, delay?: number, options?: { error?: boolean }) => void
+  ): string => {
+    try {
+      const parsed = JSON.parse(text);
+      if (showToast) {
+        showToast("JSON formatted successfully");
+      }
+      return JSON.stringify(parsed, null, 2);
+    } catch (error) {
+      console.error("Error formatting JSON:", error);
+      if (showToast) {
+        showToast("Error formatting JSON", 1500, { error: true });
+      }
+      return text;
+    }
+  };
+
   const [defaultText, setDefaultText] = useState(format(text));
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(THEMES.light);
@@ -43,29 +59,19 @@ const Editor = React.forwardRef<EditorMethods, EditorProps>(
   const showToast = useToast();
 
   const formatEditorContent = () => {
-    try {
-      if (typeof editorRef?.current === "undefined") throw new Error("Editor is not available");
-      
-      const formattedContent = format(editorRef.current.getValue());
-      editorRef.current.setValue(formattedContent);
-      editorRef.current.setScrollTop(0);
-      window.localStorage.setItem("pizza-format-cache", formattedContent);
-      
-      showToast("JSON formatted successfully");
-    } catch (error) {
-      console.error("Error formatting JSON:", error);
-      showToast("Error formatting JSON", 1500, { error: true });
-    }
+    if (typeof editorRef?.current === "undefined") throw new Error("Editor is not available");
+    const formattedContent = format(editorRef.current.getValue(), showToast);
+    editorRef.current.setValue(formattedContent);
+    editorRef.current.setScrollTop(0);
+    window.localStorage.setItem("pizza-format-cache", formattedContent);
   };
 
   const formatEditorContentNoToast = () => {
-    if (typeof editorRef?.current === "undefined") return;
-    editorRef.current.setValue(format(editorRef.current.getValue()));
+    if (typeof editorRef?.current === "undefined") throw new Error("Editor is not available");
+    const formattedContent = format(editorRef.current.getValue());
+    editorRef.current.setValue(formattedContent);
     editorRef.current.setScrollTop(0);
-    window.localStorage.setItem(
-      "pizza-format-cache",
-      editorRef.current.getValue()
-    );
+    window.localStorage.setItem("pizza-format-cache", formattedContent);
   };
 
   const copyEditorContent = () => {
@@ -186,7 +192,8 @@ const Editor = React.forwardRef<EditorMethods, EditorProps>(
     minimap: { enabled: false },
     tabSize: 2,
     disableMonospaceOptimizations: true,
-    scrollbar: { verticalScrollbarSize: 0, useShadows: false },
+    overviewRulerLanes: 0,
+    scrollbar: { verticalScrollbarSize: 4, horizontalScrollbarSize: 4, useShadows: false },
     scrollBeyondLastLine: false,
     autoDetectHighContrast: false,
     codeLens: false,

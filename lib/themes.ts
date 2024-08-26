@@ -35,6 +35,9 @@ export const THEME_P_DARK: editor.IStandaloneThemeData = {
     "editorHoverWidget.border": "#1A1A1E",
     "editor.foldBackground": "#1A1A1E",
     "editorGutter.foldingControlForeground": "#26262B",
+    "scrollbarSlider.background": "#26262B",
+    "scrollbarSlider.hoverBackground": "#303036",
+    "scrollbarSlider.activeBackground": "#303036",
   },
 };
 
@@ -69,5 +72,8 @@ export const THEME_P_LIGHT: editor.IStandaloneThemeData = {
     "editorHoverWidget.border": "#E0E0EB",
     "editor.foldBackground": "#E0E0EB",
     "editorGutter.foldingControlForeground": "#D4D4D9",
+    "scrollbarSlider.background": "#B4B4B9",
+    "scrollbarSlider.hoverBackground": "#A4A4A9",
+    "scrollbarSlider.activeBackground": "#A4A4A9",
   },
 };
