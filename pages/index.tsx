@@ -126,7 +126,7 @@ export default function Home() {
                 {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> K
               </KeyboardShortcut>
             </Button>
-            <Button onClick={onThemeButton} hasShortcut>
+            <Button onClick={onShareableLinkButton} hasShortcut>
               Shareable Link
               <KeyboardShortcut>
                 {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> L
