@@ -1,5 +1,6 @@
 import useComponentVisible from "../hooks/useComponentVisible";
 import { AnimatePresence, motion } from "framer-motion";
+import { isMacOs } from 'react-device-detect'
 
 // Components
 import { Button } from "../components/Button";
@@ -34,31 +35,31 @@ export default function Overlay({ darkMode }: OverlayProps) {
               <div className="line">
                 <span>To format your JSON blob, paste it into the editor and press</span>
                 <KeyboardShortcut color="button">
-                  ⌘ <KeyboardPlus /> Enter
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> Enter
                 </KeyboardShortcut>
               </div>
               <div className="line">
                 <span>To copy your formatted JSON blob to your clipboard, press</span>
                 <KeyboardShortcut color="button">
-                  ⌘ <KeyboardPlus /> K
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> K
                 </KeyboardShortcut>
               </div>
               <div className="line">
                 <span>To generate a shareable, public link to your JSON blob, press</span>
                 <KeyboardShortcut color="button">
-                  ⌘ <KeyboardPlus /> L
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> L
                 </KeyboardShortcut>
               </div>
               <div className="line">
                 <span>To toggle the information overlay (for links and shortcuts) press</span>
                 <KeyboardShortcut color="button">
-                  ⌘ <KeyboardPlus /> J
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> J
                 </KeyboardShortcut>
               </div>
               <div className="line">
                 <span>To switch between <InlineTag>Light</InlineTag> and <InlineTag>Dark</InlineTag> color modes, press</span>
                 <KeyboardShortcut color="button">
-                  ⌘ <KeyboardPlus /> M
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> M
                 </KeyboardShortcut>
               </div>
               <div className="line">
