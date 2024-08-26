@@ -100,7 +100,7 @@ export default function Home() {
           <Editor ref={editorRef} onToggleTheme={onThemeButton} darkMode={isDarkMode} />
           {showInfo && <Overlay darkMode={isDarkMode} />}
           <TopButtons>
-            <Button onClick={onInfoButton} color="secondary" hasShortcut>
+            <Button onClick={onInfoButton} className={showInfo ? "active" : ""} color="secondary" hasShortcut>
               Information
               <KeyboardShortcut color="secondary">
                 {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> J

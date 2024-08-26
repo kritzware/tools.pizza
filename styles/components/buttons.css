@@ -22,6 +22,9 @@ button {
   font-variation-settings: "wght" 500;
   font-size: 12.37px;
   line-height: 9px;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 button.has-shortcut {
   padding: 0 12px 0 14px;
@@ -46,6 +49,9 @@ button:active {
 .dark button.secondary:hover {
   background-color: hsl(240, 6%, 12%);
 }
+.dark button.secondary.active {
+  color: white;
+}
 
 /* Light */
 
@@ -58,8 +64,11 @@ button:active {
 }
 .light button.secondary {
   background-color: hsl(240, 15%, 91%);
-  color: hsl(240, 3%, 30%);
+  color: hsl(240, 3%, 36%);
 }
 .light button.secondary:hover {
   background-color: hsl(240, 15%, 90%);
+}
+.light button.secondary.active {
+  color: hsl(240, 3%, 2%);
 }
