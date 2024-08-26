@@ -43,14 +43,19 @@ const Editor = React.forwardRef<EditorMethods, EditorProps>(
   const showToast = useToast();
 
   const formatEditorContent = () => {
-    if (typeof editorRef?.current === "undefined") return;
-    editorRef.current.setValue(format(editorRef.current.getValue()));
-    editorRef.current.setScrollTop(0);
-    window.localStorage.setItem(
-      "pizza-format-cache",
-      editorRef.current.getValue()
-    );
-    showToast("JSON formatted successfully");
+    try {
+      if (typeof editorRef?.current === "undefined") throw new Error("Editor is not available");
+      
+      const formattedContent = format(editorRef.current.getValue());
+      editorRef.current.setValue(formattedContent);
+      editorRef.current.setScrollTop(0);
+      window.localStorage.setItem("pizza-format-cache", formattedContent);
+      
+      showToast("JSON formatted successfully");
+    } catch (error) {
+      console.error("Error formatting JSON:", error);
+      showToast("Error formatting JSON", 1500, { error: true });
+    }
   };
 
   const formatEditorContentNoToast = () => {
@@ -169,6 +174,7 @@ const Editor = React.forwardRef<EditorMethods, EditorProps>(
     }
 
     // Format content
+    // Handles shareableLink formatting
     formatEditorContentNoToast();
 
     // Focus editor

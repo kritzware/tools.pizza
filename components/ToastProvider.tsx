@@ -2,8 +2,12 @@ import { createContext, useState, ReactNode, useEffect } from "react";
 import useComponentVisible from "../hooks/useComponentVisible";
 import { AnimatePresence, motion } from "framer-motion";
 
+type ToastOptions = {
+  error?: boolean;
+};
+
 type ToastContextType = {
-  showToast: (content: ReactNode, delay?: number) => void;
+  showToast: (content: ReactNode, delay?: number, options?: ToastOptions) => void;
 };
 
 export const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -16,17 +20,21 @@ type ToastProviderProps = {
 export const ToastProvider = ({ children, defaultDelay = 1500 }: ToastProviderProps) => {
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
   const [toastContent, setToastContent] = useState<ReactNode>(null);
-  const [toastQueue, setToastQueue] = useState<Array<{ content: ReactNode, delay: number }>>([]);
+  const [toastQueue, setToastQueue] = useState<
+    Array<{ content: ReactNode, delay: number, options?: ToastOptions }>
+  >([]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [toastOptions, setToastOptions] = useState<ToastOptions>({});
 
-  const showToast = (content: ReactNode, delay: number = defaultDelay) => {
-    setToastQueue(prevQueue => [...prevQueue, { content, delay }]);
+  const showToast = (content: ReactNode, delay: number = defaultDelay, options?: ToastOptions) => {
+    setToastQueue(prevQueue => [...prevQueue, { content, delay, options }]);
   };
 
   useEffect(() => {
     if (toastQueue.length > 0 && !isAnimating && !isComponentVisible) {
-      const { content, delay } = toastQueue[0];
+      const { content, delay, options } = toastQueue[0];
       setToastContent(content);
+      setToastOptions(options || {}); // Store the options
       setIsComponentVisible(true);
       setIsAnimating(true);
   
@@ -34,7 +42,7 @@ export const ToastProvider = ({ children, defaultDelay = 1500 }: ToastProviderPr
         setIsComponentVisible(false);
       }, delay);
     }
-  }, [toastQueue, isAnimating, isComponentVisible, setIsComponentVisible]);  
+  }, [toastQueue, isAnimating, isComponentVisible, setIsComponentVisible]);
 
   const handleAnimationComplete = () => {
     setIsAnimating(false);
@@ -48,7 +56,7 @@ export const ToastProvider = ({ children, defaultDelay = 1500 }: ToastProviderPr
         <AnimatePresence onExitComplete={handleAnimationComplete}>
           {isComponentVisible && (
             <motion.div
-              className="toast"
+              className={`toast ${toastOptions.error ? 'error' : ''}`}
               exit={{
                 y: 16,
                 opacity: 0,
