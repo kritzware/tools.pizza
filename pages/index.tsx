@@ -68,19 +68,19 @@ export default function Home() {
   };
 
   // Keyboard Shortcuts
-  useKeyPress('meta.u', () => {
+  useKeyPress(isMacOs ? 'meta.u' : 'ctrl.u', () => {
     onInfoButton();
   });
-  useKeyPress('meta.j', () => {
+  useKeyPress(isMacOs ? 'meta.j' : 'ctrl.j', () => {
     onCopyButton();
   });
-  useKeyPress('meta.k', () => {
+  useKeyPress(isMacOs ? 'meta.k' : 'ctrl.k', () => {
     onShareableLinkButton();
   });
-  useKeyPress('meta.b', () => {
+  useKeyPress(isMacOs ? 'meta.b' : 'ctrl.b', () => {
     onThemeButton();
   });
-  useKeyPress('meta.enter', () => {
+  useKeyPress(isMacOs ? 'meta.enter' : 'ctrl.enter', () => {
     onFormatButton();
   });
 
