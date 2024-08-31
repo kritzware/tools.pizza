@@ -72,3 +72,10 @@ button:active {
 .light button.secondary.active {
   color: hsl(240, 3%, 2%);
 }
+
+/* Normalise margins on mobile, tablet devices */
+@media screen and (max-width: 767px) {
+  button.has-shortcut {
+    padding: 0 14px;
+  }
+}

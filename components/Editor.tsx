@@ -20,12 +20,13 @@ export type EditorMethods = {
 };
 
 type EditorProps = {
+  onToggleInformation?: () => void;
   onToggleTheme?: () => void;
   darkMode?: boolean;
 };
 
 const Editor = React.forwardRef<EditorMethods, EditorProps>(
-  ({ onToggleTheme, darkMode }, ref) => {
+  ({ onToggleInformation, onToggleTheme, darkMode }, ref) => {
   const text = DATA1;
 
   const format = (
@@ -87,6 +88,12 @@ const Editor = React.forwardRef<EditorMethods, EditorProps>(
     }
   };
 
+  const toggleInformation = () => {
+    if (onToggleInformation) {
+      onToggleInformation();
+    }
+  };
+
   const toggleEditorTheme = () => {
     // @ts-expect-error Not defined on type
     const currentTheme = editorRef.current._themeService._theme.themeName;
@@ -123,7 +130,7 @@ const Editor = React.forwardRef<EditorMethods, EditorProps>(
 
   useImperativeHandle(
     ref,
-    () => ({ formatEditorContent, copyEditorContent, toggleTheme, toggleEditorTheme, getShareableLink }),
+    () => ({ formatEditorContent, copyEditorContent, toggleTheme, toggleInformation, toggleEditorTheme, getShareableLink }),
     []
   );
 
@@ -152,21 +159,20 @@ const Editor = React.forwardRef<EditorMethods, EditorProps>(
       monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
       formatEditorContent
     );
-  
-    // Theme
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyM, toggleTheme);
-  
-    // Shareable Link
-    editor.addCommand(
-      monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyL,
-      getShareableLink
-    );
-
     // Copy JSON
     editor.addCommand(
-      monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
+      monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyJ,
       copyEditorContent
     );
+    // Shareable Link
+    editor.addCommand(
+      monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK,
+      getShareableLink
+    );
+    // Toggle Theme
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyB, toggleTheme);
+    // Toggle Information
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyU, toggleInformation);
 
     // Load custom themes
     monaco.editor.defineTheme(THEMES.dark, THEME_P_DARK);

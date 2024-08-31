@@ -59,16 +59,14 @@ export const ToastProvider = ({ children, defaultDelay = 1500 }: ToastProviderPr
               className={`toast ${toastOptions.error ? 'error' : ''}`}
               exit={{
                 y: 56,
-
                 filter: "blur(4px)",
-                transition: { type: "spring", duration: 0.64 }
+                transition: { type: "spring", duration: 0.56 }
               }}
               initial={{ y: 56 }}
               animate={{
-
                 y: 0,
                 filter: "blur(0px)",
-                transition: { type: "spring", duration: 0.64 }
+                transition: { type: "spring", duration: 0.56 }
               }}
             >
               {toastContent}

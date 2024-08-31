@@ -68,16 +68,16 @@ export default function Home() {
   };
 
   // Keyboard Shortcuts
-  useKeyPress('meta.j', () => {
+  useKeyPress('meta.u', () => {
     onInfoButton();
   });
-  useKeyPress('meta.k', () => {
+  useKeyPress('meta.j', () => {
     onCopyButton();
   });
-  useKeyPress('meta.l', () => {
+  useKeyPress('meta.k', () => {
     onShareableLinkButton();
   });
-  useKeyPress('meta.m', () => {
+  useKeyPress('meta.b', () => {
     onThemeButton();
   });
   useKeyPress('meta.enter', () => {
@@ -97,19 +97,19 @@ export default function Home() {
       </Head>
       <main ref={editorElementRef}>
         <ClientOnly>
-          <Editor ref={editorRef} onToggleTheme={onThemeButton} darkMode={isDarkMode} />
+          <Editor ref={editorRef} onToggleInformation={onInfoButton} onToggleTheme={onThemeButton} darkMode={isDarkMode} />
           {showInfo && <Overlay darkMode={isDarkMode} />}
           <TopButtons>
             <Button onClick={onInfoButton} className={showInfo ? "active" : ""} color="secondary" hasShortcut>
               Information
               <KeyboardShortcut color="secondary">
-                {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> J
+                {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> U
               </KeyboardShortcut>
             </Button>
               <Button onClick={onThemeButton} color="secondary" hasShortcut>
                 {isDarkMode ? 'Dark' : 'Light'} Mode
                 <KeyboardShortcut color="secondary">
-                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> M
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> B
                 </KeyboardShortcut>
               </Button>
           </TopButtons>
@@ -123,13 +123,13 @@ export default function Home() {
             <Button onClick={onCopyButton} hasShortcut>
               Copy JSON
               <KeyboardShortcut>
-                {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> K
+                {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> J
               </KeyboardShortcut>
             </Button>
             <Button onClick={onShareableLinkButton} hasShortcut>
               Shareable Link
               <KeyboardShortcut>
-                {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> L
+                {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus/> K
               </KeyboardShortcut>
             </Button>
           </Toolbar>
