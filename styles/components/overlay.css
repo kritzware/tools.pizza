@@ -1,0 +1,69 @@
+.overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  backdrop-filter: blur(6px);
+  z-index: 2;
+  padding-bottom: 68px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay h3 {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-variation-settings: "wght" 436;
+  font-size: 15.11px;
+  line-height: 11px;
+  text-align: center;
+  margin: 0;
+}
+.overlay span {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-variation-settings: "wght" 436;
+  font-size: 12.37px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.overlay .lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.overlay .line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Dark */
+
+.dark .overlay {
+  background-color: #121214;
+}
+.dark .overlay span {
+  color: hsl(240, 2%, 40%);
+}
+.dark .overlay h3 {
+  color: white;
+}
+
+/* Light  */
+
+.light .overlay {
+  background-color: #efeff5;
+}
+.light .overlay span {
+  color: hsl(240, 3%, 44%);
+}
+.light .overlay h3 {
+  color: hsl(240, 3%, 10%);
+}

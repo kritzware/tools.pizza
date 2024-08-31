@@ -1,0 +1,69 @@
+.keyboard-shortcut {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+  gap: 3px;
+
+  height: 17px;
+  border-radius: 6px;
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-variation-settings: "wght" 580;
+  font-size: 9.62px;
+  line-height: 11px;
+  font-feature-settings: "cv11" on, "cv01" on;
+}
+
+/* Dark */
+
+.dark .keyboard-shortcut.primary {
+  background-color: hsl(240, 9%, 11%);
+  color: hsl(240, 3%, 36%);
+}
+.dark .keyboard-shortcut.primary svg path {
+  fill: hsl(240, 3%, 36%);
+}
+
+.dark .keyboard-shortcut.secondary {
+  background-color: hsla(240, 7%, 15%);
+  color: hsla(240, 3%, 56%, 0.72);
+}
+.dark .keyboard-shortcut.secondary svg path {
+  fill: hsla(240, 3%, 56%, 0.72);
+}
+
+.dark .keyboard-shortcut.button {
+  background-color: hsl(240, 6%, 11%);
+  color: hsla(240, 3%, 56%, 0.72);
+}
+.dark .keyboard-shortcut.button svg path {
+  fill: hsla(240, 3%, 56%, 0.72);
+}
+
+/* Light */
+
+.light .keyboard-shortcut.primary {
+  background-color: hsl(240, 8%, 20%);
+  color: hsl(240, 3%, 48%);
+}
+.light .keyboard-shortcut.primary svg path {
+  fill: hsl(240, 3%, 48%);
+}
+
+.light .keyboard-shortcut.secondary {
+  background-color: hsl(240, 11%, 87%);
+  color: hsla(240, 3%, 30%, 0.64);
+}
+.light .keyboard-shortcut.secondary svg path {
+  fill: hsla(240, 3%, 30%, 0.64);
+}
+
+.light .keyboard-shortcut.button {
+  background-color: hsl(240, 15%, 91%);
+  color: hsla(240, 3%, 30%, 0.64);
+}
+.light .keyboard-shortcut.button svg path {
+  fill: hsla(240, 3%, 30%, 0.64);
+}
