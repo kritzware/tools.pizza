@@ -16,6 +16,10 @@
   font-feature-settings: "cv11" on, "cv01" on;
 }
 
+.keyboard-shortcut svg {
+  margin-right: 1px;
+}
+
 /* Dark */
 
 .dark .keyboard-shortcut.primary {
@@ -66,4 +70,12 @@
 }
 .light .keyboard-shortcut.button svg path {
   fill: hsla(240, 3%, 30%, 0.64);
+}
+
+/* Hide on mobile, tablet devices */
+
+@media screen and (max-width: 767px) {
+  .keyboard-shortcut {
+    display: none;
+  }
 }

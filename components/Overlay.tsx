@@ -41,25 +41,25 @@ export default function Overlay({ darkMode }: OverlayProps) {
               <div className="line">
                 <span>To copy your formatted JSON blob to your clipboard, press</span>
                 <KeyboardShortcut color="button">
-                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> K
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> J
                 </KeyboardShortcut>
               </div>
               <div className="line">
                 <span>To generate a shareable, public link to your JSON blob, press</span>
                 <KeyboardShortcut color="button">
-                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> L
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> K
                 </KeyboardShortcut>
               </div>
               <div className="line">
                 <span>To toggle the information overlay (for links and shortcuts) press</span>
                 <KeyboardShortcut color="button">
-                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> J
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> U
                 </KeyboardShortcut>
               </div>
               <div className="line">
                 <span>To switch between <InlineTag>Light</InlineTag> and <InlineTag>Dark</InlineTag> color modes, press</span>
                 <KeyboardShortcut color="button">
-                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> M
+                  {isMacOs ? '⌘' : 'Ctrl'} <KeyboardPlus /> B
                 </KeyboardShortcut>
               </div>
               <div className="line">
